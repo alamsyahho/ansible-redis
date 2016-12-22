@@ -1,0 +1,48 @@
+---
+- name: create redis user
+  user:
+    name: "{{ redis_user }}"
+    uid: 490
+    comment: 'Redis Server'
+    home: "{{ redis_home }}"
+    shell: /bin/false
+    system: yes
+
+- name: create redis config, log and run directories
+  file:
+    name: "{{ item }}"
+    state: directory
+    owner: redis
+    group: redis
+  with_items:
+    - /etc/redis
+    - /var/log/redis
+    - /var/run/redis
+
+- name: create  working directories for each redis
+  file:
+    name: /var/lib/redis/{{ item.key }}
+    state: directory
+    owner: redis
+    group: redis
+  with_dict: "{{ redis_list }}"
+
+- name: configure redis
+  template:
+    src: etc+redis+redis.conf
+    dest: /etc/redis/{{ item.key }}.conf
+  with_dict: "{{ redis_list }}"
+
+- name: create init script for each redis
+  template:
+    src: "{{ redis_init_src }}"
+    dest: "{{ redis_init_dst }}"
+    mode: 0755
+  with_dict: "{{ redis_list }}"
+
+- name: start all redis service
+  service:
+    name: "{{ item.key }}"
+    state: started
+    enabled: true
+  with_dict: "{{ redis_list }}"

@@ -1,0 +1,30 @@
+---
+# This is the redis source that will be used to compile redis package
+# Select the full url from http://download.redis.io/releases/
+redis_version: redis-3.2.1
+redis_download_url: http://download.redis.io/releases/{{ redis_version }}.tar.gz
+
+redis_user: redis
+redis_group: "{{ redis_user }}"
+
+redis_home: /var/lib/redis
+
+redis_list:
+  redis-16379:
+    port: 16379
+    maxmemory: 128mb
+  redis-16380:
+    port: 16380
+    maxmemory: 128mb
+  redis-16381:
+    port: 16381
+    maxmemory: 128mb
+  redis-17379:
+    port: 17379
+    maxmemory: 128mb
+  redis-17380:
+    port: 17380
+    maxmemory: 128mb
+  redis-17381:
+    port: 17381
+    maxmemory: 128mb

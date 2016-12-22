@@ -1,0 +1,51 @@
+---
+- name: install some package dependencies for redis
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gcc
+    - lua-static
+    - libtalloc
+    - libtalloc-devel
+    - tcl
+    - jemalloc-devel
+
+- name: ensure temp directory exists
+  file:
+    name: /var/tmp/redis
+    state: directory
+
+- name: download redis source
+  get_url:
+    url: "{{ redis_download_url }}"
+    dest: /var/tmp/redis/{{ redis_version }}.tar.gz
+    timeout: 60
+
+- name: extract redis
+  unarchive:
+    src: /var/tmp/redis/{{ redis_version }}.tar.gz
+    dest: /var/tmp/redis
+    remote_src: true
+
+- name: compile redis
+  command: make
+  args:
+    chdir: /var/tmp/redis/{{ redis_version }}
+    creates: /var/tmp/redis/{{ redis_version }}/src/redis-server
+
+- name: run make test
+  command: make test
+  args:
+    chdir: /var/tmp/redis/{{ redis_version }}
+    creates: /usr/local/bin/redis-server
+  register: redis_unit_test
+
+- debug:
+    msg: "{{ redis_unit_test }}"
+
+- name: install redis
+  command: make install
+  args:
+    chdir: /var/tmp/redis/{{ redis_version }}
+    creates: /usr/local/bin/redis-server

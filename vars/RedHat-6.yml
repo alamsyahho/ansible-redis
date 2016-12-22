@@ -1,0 +1,5 @@
+---
+epel_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+
+redis_init_src: etc+init.d+redis
+redis_init_dst: /etc/init.d/{{ item.key }}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Redis persistent key-value database
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/redis-server /etc/redis/{{ item.key }}.conf --daemonize no
+User=redis
+Group=redis
+
+[Install]
+WantedBy=multi-user.target
