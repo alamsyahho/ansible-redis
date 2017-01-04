@@ -28,3 +28,12 @@ redis_list:
   redis-17381:
     port: 17381
     maxmemory: 128mb
+  redis-18379:
+    port: 18379
+    maxmemory: 128mb
+  redis-18380:
+    port: 18380
+    maxmemory: 128mb
+  redis-18381:
+    port: 18381
+    maxmemory: 128mb
