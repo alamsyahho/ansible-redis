@@ -10,30 +10,33 @@ redis_group: "{{ redis_user }}"
 redis_home: /var/lib/redis
 
 redis_list:
+  redis-6379:
+    port: 6379
+    maxmemory: 64mb
   redis-16379:
     port: 16379
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-16380:
     port: 16380
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-16381:
     port: 16381
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-17379:
     port: 17379
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-17380:
     port: 17380
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-17381:
     port: 17381
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-18379:
     port: 18379
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-18380:
     port: 18380
-    maxmemory: 128mb
+    maxmemory: 64mb
   redis-18381:
     port: 18381
-    maxmemory: 128mb
+    maxmemory: 64mb
