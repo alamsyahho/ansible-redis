@@ -34,16 +34,6 @@
     chdir: /var/tmp/redis/{{ redis_version }}
     creates: /var/tmp/redis/{{ redis_version }}/src/redis-server
 
-- name: run make test
-  command: make test
-  args:
-    chdir: /var/tmp/redis/{{ redis_version }}
-    creates: /usr/local/bin/redis-server
-  register: redis_unit_test
-
-- debug:
-    msg: "{{ redis_unit_test }}"
-
 - name: install redis
   command: make install
   args:
